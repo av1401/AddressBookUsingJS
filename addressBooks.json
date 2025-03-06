@@ -1,4 +1,26 @@
 {
-  "Personal": [],
-  "Work": []
+  "Personal": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "address": "123 Main St",
+      "city": "New York",
+      "state": "New York",
+      "zip": "10001",
+      "phone": "9876543210",
+      "email": "john.doe@example.com"
+    }
+  ],
+  "Work": [
+    {
+      "firstName": "Vinay",
+      "lastName": "Jadaun",
+      "address": "456 Market St",
+      "city": "New Jersey",
+      "state": "New Jersey",
+      "zip": "90001",
+      "phone": "9123456789",
+      "email": "vinay.jadaun@example.com"
+    }
+  ]
 }
