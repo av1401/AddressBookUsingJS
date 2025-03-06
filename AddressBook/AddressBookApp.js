@@ -171,6 +171,20 @@ class AddressBookApp {
         console.log("Address book sorted by name:", this.addressBooks);
     }
 
+    sortBy(field) {
+        if (!["city", "state", "zip"].includes(field)) {
+            console.error("Invalid sort field. Choose 'city', 'state', or 'zip'.");
+            return;
+        }
+    
+        Object.keys(this.addressBooks).forEach(bookName => {
+            this.addressBooks[bookName].sort((a, b) => 
+                a[field].toString().localeCompare(b[field].toString())
+            );
+        });
+    
+        console.log(`Address book sorted by ${field}:`, this.addressBooks);
+    }
 }
 
 // Example Usage
