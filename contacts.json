@@ -1,0 +1,12 @@
+[
+  {
+    "firstName": "Abhishek",
+    "lastName": "Vishwakarma",
+    "address": "123 Street",
+    "city": "Pune",
+    "state": "Maharashtra",
+    "zip": "10001",
+    "phone": "9876543210",
+    "email": "abhi@example.com"
+  }
+]
