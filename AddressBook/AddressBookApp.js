@@ -160,6 +160,17 @@ class AddressBookApp {
             console.log(`Contacts in '${cityOrState}':`, results);
         }
     }
+    
+    sortByName() {
+        Object.keys(this.addressBooks).forEach(bookName => {
+            this.addressBooks[bookName].sort((a, b) => 
+                a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+            );
+        });
+    
+        console.log("Address book sorted by name:", this.addressBooks);
+    }
+
 }
 
 // Example Usage
