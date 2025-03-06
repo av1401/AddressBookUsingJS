@@ -1,9 +1,8 @@
-
 const fs = require('fs');
 
 class AddressBookApp {
     constructor() {
-        this.filePath = 'contacts/addressBooks.json';
+        this.filePath = 'addressBooks.json';
         this.addressBooks = this.loadAddressBooks();
     }
 
@@ -49,23 +48,33 @@ class AddressBookApp {
            if (!phoneRegex.test(phone)) throw new Error("Invalid Phone Number");
            if (!emailRegex.test(email)) throw new Error("Invalid Email Address");
        }
-   
+       
        addContact(bookName, firstName, lastName, address, city, state, zip, phone, email) {
-           if (!this.addressBooks[bookName]) {
-               console.log(`Address Book '${bookName}' does not exist.`);
-               return;
-           }
-           try {
-               this.validateContact(firstName, lastName, address, city, state, zip, phone, email);
-               const contact = { firstName, lastName, address, city, state, zip, phone, email };
-               this.addressBooks[bookName].push(contact);
-               this.saveAddressBooks();
-               console.log("Contact added successfully!");
-           } catch (error) {
-               console.error("Error adding contact:", error.message);
-           }
-       }
-   
+        if (!this.addressBooks[bookName]) {
+            console.log(`Address Book '${bookName}' does not exist.`);
+            return;
+        }
+        try {
+            this.validateContact(firstName, lastName, address, city, state, zip, phone, email);
+          
+            const contact = { firstName, lastName, address, city, state, zip, phone, email };
+          
+
+            
+            this.addressBooks[bookName].push(contact);
+            const isDuplicate = this.addressBooks[bookName].some(c => c.name === contact.name);
+            if (isDuplicate) {
+                console.log(`Duplicate entry! Contact '${contact.name}' already exists in '${bookName}'.`);
+                return;
+            }
+            this.saveAddressBooks();
+            console.log("Contact added successfully!");
+        } catch (error) {
+            console.error("Error adding contact:", error.message);
+        }
+    }
+    
+
        viewContacts(bookName) {
            if (!this.addressBooks[bookName]) {
                console.log(`Address Book '${bookName}' does not exist.`);
@@ -131,14 +140,39 @@ class AddressBookApp {
         console.log(`Total contacts in '${bookName}': ${contactCount}`);
         return contactCount;
     }
+
+
+    searchByCityOrState(cityOrState) {
+        let results = [];
+
+        Object.keys(this.addressBooks).forEach(bookName => {
+            const contacts = this.addressBooks[bookName].filter(contact =>
+                contact.city.toLowerCase() === cityOrState.toLowerCase() ||
+                contact.state.toLowerCase() === cityOrState.toLowerCase()
+            );
+            results = results.concat(contacts);
+        });
+
+        if (results.length === 0) {
+            console.log(`No contacts found in '${cityOrState}'.`);
+        } else {
+            console.log(`Contacts in '${cityOrState}':`, results);
+        }
+    }
 }
 
 // Example Usage
 const app = new AddressBookApp();
 app.createAddressBook("Personal");
 app.addContact("Personal", "John", "Doe", "123 Main St", "New York", "NY", "10001", "9876543210", "john.doe@example.com");
+app.viewContacts("Personal");
 app.createAddressBook("Work");
 app.addContact("Work", "Alice", "Smith", "456 Market St", "Berkhera pathani", "California", "90001", "9123456789", "alice.smith@example.com");
 app.viewContacts("Work");
 app.editContact("Work", "Alice", "Smith", { phone: "9876543211", email: "john.new@example.com" });
-app.countContacts("Work");
+app.deleteContact("Work","Alice","Smith");
+app.countContacts("Personal");
+app.addContact("Personal", "John", "Doe", "123 Main St", "New York", "Nwq idhhd", "10001", "9876543210", "john.doe@example.com");
+// app.searchByCityOrState("California");
+app.addContact("Work", "Vinay", "Jadaun", "456 Market St", "New Jersery", "New jersey", "90001", "9123456789", "alice.smith@example.com");
+app.searchByCityOrState("New York")
