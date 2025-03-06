@@ -8,5 +8,15 @@
     "zip": "10001",
     "phone": "9876543210",
     "email": "abhi@example.com"
+  },
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "address": "123 Main St",
+    "city": "New York",
+    "state": "NEW YORK",
+    "zip": "10001",
+    "phone": "9876543210",
+    "email": "john.doe@example.com"
   }
 ]
